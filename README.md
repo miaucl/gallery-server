@@ -2,7 +2,7 @@
 
 A gallery server for simple frontend devices
 
-Start the server with `python -m gallery_server`
+Start the server with `python -m gallery_server` or use the docker image.
 
 ## Scripts
 
