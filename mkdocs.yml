@@ -1,8 +1,8 @@
-site_name: Cookidoo API
-site_description: An unofficial python package to access Cookidoo.
+site_name: Gallery Server
+site_description: A gallery server for simple frontend devices
 
-repo_url: https://github.com/miaucl/cookidoo-api
-repo_name: miaucl/cookidoo-api
+repo_url: https://github.com/miaucl/gallery-server
+repo_name: miaucl/gallery-server
 
 theme:
   name: material
@@ -59,7 +59,7 @@ plugins:
 
 watch:
     - docs
-    - cookidoo_api
+    - gallery_server
 
 
 nav:
@@ -68,4 +68,3 @@ nav:
     - Authors: authors.md
     - License: license.md
     - Reference: reference.md
-    - Localization: localization.md
