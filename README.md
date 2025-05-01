@@ -8,7 +8,7 @@ Start the server with `python -m gallery_server` or use the docker image.
 
 ### User credentials
 
-There is a script to prepare a user credentials file which is required to access the api. Have a look at `./scripts/generate-password-hashes.py`, add your user/password combinations and run the script to create a `users.json` file at the root of the repo. It uses the function `generate_password_hash` from `werkzeug.security` with the `scrypt:32768:8:1` algorithm.
+There is a script to prepare a user credentials file which is required to access the api. Have a look at `./scripts/generate-password-hashes.py`, add your user/password combinations and run the script to create a `users.json` file at the root of the repo. It uses the function `generate_password_hash` from `werkzeug.security` with the `scrypt:32768:8:1` algorithm. This will generate a new hash each time. Should you want to get deterministic hashes for CI/CD, use `./scripts/generate-password-hashes-deterministic-pbkdf2-sha256.py` or `./scripts/generate-password-hashes-deterministic-scrypt.py` using `hashlib` directly.
 
 ### Dithering test
 
