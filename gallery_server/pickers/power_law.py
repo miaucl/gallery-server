@@ -69,7 +69,7 @@ def _get_creation_time(path: str) -> datetime:
 
 
 def pick_weighted_image_by_power_law_by_seed(
-    power: float = 0.05,
+    power: float = 0.25,
     seed: str | None = None,
     allowed_extensions: list[str] = [".png", ".jpg", ".jpeg", ".bmp", ".gif"],
 ):
