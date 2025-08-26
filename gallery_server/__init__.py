@@ -11,7 +11,7 @@ from PIL import Image
 from werkzeug.security import check_password_hash
 
 from .helpers import normalize_timestamp
-from .pickers import pick_random_image_by_seed
+from .pickers import pick_image_by_method
 from .processors import format_image
 
 _LOGGER = logging.getLogger(__name__)
@@ -58,12 +58,16 @@ def home():
 def get_image(resolution: str):
     """Route to get a random image based on resolution and query parameters.
 
+    Params:
+    - resolution: The resolution of the timespan (e.g., "year", "month", "week", "day", "hour", "minute", "second").
+
     Query Parameters:
     - format: The format of the image (e.g., "jpeg", "png", "bmp").
     - size: The size of the image (e.g., "1024x768").
     - fit: How the image should fit (e.g., "cover", "contain").
     - filter: Any filters to apply (e.g., "grayscale", "sepia", "blur", "dithering").
     - dithering_palette: The palette to use for dithering (e.g., "black-white", "4-color", "n-color").
+    - picker: The method to pick the image (e.g., "random", "power-law").
     """
     try:
         image_format = request.args.get("format", None)
@@ -71,16 +75,18 @@ def get_image(resolution: str):
         fit = request.args.get("fit", "cover")
         filter = request.args.get("filter", None)
         dithering_palette = request.args.get("dithering_palette", "black-white")
+        picker = request.args.get("picker", "power-law")
 
-        image_path = pick_random_image_by_seed(
-            normalize_timestamp(resolution).isoformat()
+        image_path = pick_image_by_method(
+            method=picker,
+            seed=normalize_timestamp(resolution).isoformat()
             if resolution
             in ["year", "month", "week", "day", "hour", "minute", "second"]
             else None,
         )
         _, image_raw_format = os.path.splitext(image_path)
         format = image_format or image_raw_format[1:].lower()
-        format = "jpeg" if format == "jpeg" else format  # fix jpeg vs jpg ambiguity
+        format = "jpeg" if format == "jpg" else format  # fix jpeg vs jpg ambiguity
         with Image.open(image_path) as img:
             img_io = format_image(
                 img,

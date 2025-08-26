@@ -43,7 +43,6 @@ def pick_random_image_by_seed(
         )
 
     # Set the seed
-    # current_day = datetime.now().timetuple().tm_yday
     random.seed(seed)
 
     # Select an image
